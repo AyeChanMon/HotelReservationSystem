@@ -4,8 +4,6 @@
 
         setTimeout(function (){
             let toastInfo = @json(session('toast'));
-
-
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'bottom-end',

@@ -859,7 +859,7 @@
     border-radius: 0.25rem;
 }
 .menu-item-link.active{
-    background-color: var(--danger);
+    background-color: var(--danger) !important;
     color: white !important;
 }
 

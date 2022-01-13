@@ -9,16 +9,13 @@
     </div>
     <div class="nav-menu">
         <ul>
-
             <x-menu-spacer></x-menu-spacer>
-
             <x-menu-item name="Home" class="feather-home" link="{{ route('home') }}"></x-menu-item>
-
+            <!-- Admin Role -->
             @if(Auth::user()->role == 0)
             <x-menu-spacer></x-menu-spacer>
             <x-menu-title title="User Management"></x-menu-title>
             <x-menu-item name="Users" class="feather-users" link="{{ route('user-manager.index') }}"></x-menu-item>
-            
             <x-menu-spacer></x-menu-spacer>
             <x-menu-title title="Hotel Management"></x-menu-title>
             <x-menu-item name="Room Types" class="feather-hard-drive" link="{{ route('hotel-manager.list') }}"></x-menu-item>
@@ -26,11 +23,12 @@
             <x-menu-item name="Room" class="feather-inbox" link="{{ route('hotel-manager.room') }}"></x-menu-item>
             @endif
 
+            <!-- Admin or Manager -->
             @if(Auth::user()->role == 0 || Auth::user()->role == 2)
             <x-menu-item name="Hotel Rooms" class="feather-layout" link="{{ route('hotel-manager.index') }}"></x-menu-item>
             @endif
-            <x-menu-spacer></x-menu-spacer>
-            
+            <!-- All Role -->
+            <x-menu-spacer></x-menu-spacer>            
             <x-menu-title title="Hotel Reservation"></x-menu-title>
             <x-menu-item name="Reservation" class="feather-calendar" link="{{ route('hotel-manager.reservelist') }}"></x-menu-item>
 
@@ -40,8 +38,6 @@
                     logout
                 </a>
             </li>
-
-
         </ul>
     </div>
 </div>

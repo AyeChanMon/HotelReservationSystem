@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("title") Room @endsection
-
 @section('content')
 
     <x-bread-crumb>
@@ -23,5 +21,3 @@
     </div>
 
 @endsection
-
-

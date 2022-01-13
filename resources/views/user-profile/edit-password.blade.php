@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("title") Edit Profile @endsection
-
 @section('content')
 
     <x-bread-crumb>

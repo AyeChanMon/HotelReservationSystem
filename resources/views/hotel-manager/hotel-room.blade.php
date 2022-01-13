@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("title") Room @endsection
-
 @section('content')
 
     <x-bread-crumb>
@@ -45,7 +43,7 @@
                     Edit
                 </a>
             </td>
-            <td>{{ $i->created_at->diffForHumans() }}</td>
+            <td>{{ $i->updated_at->diffForHumans() }}</td>
         </tr>
         @endforeach
     </tbody>

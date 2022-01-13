@@ -3,9 +3,30 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-               
+        <div class="col-12">   
+            <img src="{{ asset('images/reservation1.jpg') }}" class=" w-100 img-responsive img-rounded img-fluid" alt="">
+            <div class="row mt-3">
+                <div class="col-12 col-md-4">
+                    <div class="card">
+                        <div class="">
+                         <img src="{{ asset('images/room1.jpg') }}" class=" w-100 h-100 img-responsive img-rounded img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card">
+                        <div class="">
+                        <img src="{{ asset('images/room2.jpg') }}" class=" w-100 h-100 img-responsive img-rounded img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card">
+                        <div class="">
+                        <img src="{{ asset('images/room3.jpg') }}" class=" w-100 h-100 img-responsive img-rounded img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

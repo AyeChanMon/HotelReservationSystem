@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\User;
 class UserManagerController extends Controller
 {
     public function index(){
@@ -17,12 +15,8 @@ class UserManagerController extends Controller
 
     public function makeManager(Request $request){
         $currentUser = User::find($request->id);
-        //user ဖြစ်တာကြိမ်သေရဲ့လား
         if($currentUser->role == 1){
             $currentUser->role = '2';
-            $currentUser->update();
-        }else if($currentUser->role == 2){
-            $currentUser->role = '0';
             $currentUser->update();
         }
         return redirect()->back()->with("toast",['icon'=>'success','title'=>'Role Updated for '.$currentUser->name]);
@@ -30,15 +24,12 @@ class UserManagerController extends Controller
 
     public function makeAdmin(Request $request){
         $currentUser = User::find($request->id);
-        //user ဖြစ်တာကြိမ်သေရဲ့လား
-        if($currentUser->role == 1){
+        if($currentUser->role == 1 || $currentUser->role == 2){
             $currentUser->role = '0';
             $currentUser->update();
         }
         return redirect()->back()->with("toast",['icon'=>'success','title'=>'Role Updated for '.$currentUser->name]);
-    }
-
-   
+    }   
 
     public function changeUserPassword(Request $request){
         $validator = Validator::make($request->all(),[
@@ -48,11 +39,10 @@ class UserManagerController extends Controller
             return response()->json(["status"=>422,"message"=>$validator->errors()]);
         }
         $currentUser = User::find($request->id);
-        if($currentUser->role == 1){
+        if($currentUser->role == 1 || $currentUser->role == 2){
             $currentUser->password = Hash::make($request->password);
             $currentUser->update();
         }
         return response()->json(["status"=>200,"message"=>"Password Change for $currentUser->name is complete"]);
-
     }
 }

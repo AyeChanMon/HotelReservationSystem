@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("title") Frame @endsection
-
 @section('content')
 
     <x-bread-crumb>

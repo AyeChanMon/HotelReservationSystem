@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
-@section("title") Hotel Reservation @endsection
-
 @section('content')
-
-    <!-- <x-bread-crumb>
-        <li class="breadcrumb-item active" aria-current="page">Hotels Reservation</li>
-    </x-bread-crumb> -->
     <x-bread-crumb>
     <li class="breadcrumb-item" aria-current="page"><a href="{{ route('hotel-manager.reservelist') }}">Reservation Lists</a></li>
         <li class="breadcrumb-item" aria-current="page" active>Reservation Form</li>
@@ -118,8 +112,8 @@
                                                 <label name="rType1">Room 1 type</label>
                                                 <select class="form-control" required id="rType1" name="rType1">
                                                         <option value="option_select" disabled selected>-</option>
-                                                                @foreach($data as $row)
-                                                        <option value="{{ $row->id }}" {{ old("rType1") == $row->id  ? 'selected' : ''}}>{{ $row->name}}</option>
+                                                                @foreach(\App\Roomtypes::all() as $i)
+                                                                        <option value="{{ $i->id }}" {{ old("rType1") == $i->id  ? 'selected' : ''}}>{{ $i->name}}</option>
                                                                 @endforeach
                                                 </select>
                                         </div>
@@ -127,8 +121,8 @@
                                                 <label name="rType2">Room 2 type</label>
                                                 <select class="form-control" required id="rType2" name="rType2">
                                                         <option value="option_select" disabled selected>-</option>
-                                                                @foreach($data as $row)
-                                                        <option value="{{ $row->id }}" {{ old("rType2") == $row->id  ? 'selected' : ''}}>{{ $row->name}}</option>
+                                                                @foreach(\App\Roomtypes::all() as $i)
+                                                                        <option value="{{ $i->id }}" {{ old("rType2") == $i->id  ? 'selected' : ''}}>{{ $i->name}}</option>
                                                                 @endforeach
                                                 </select>
                                         </div>

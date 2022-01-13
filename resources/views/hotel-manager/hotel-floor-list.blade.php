@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
-@section("title") Floor @endsection
-
 @section('content')
 
     <x-bread-crumb>
-        <li class="breadcrumb-item active" aria-current="page">Floor</li>
+        <li class="breadcrumb-item active" aria-current="page">Floor Level</li>
     </x-bread-crumb>
 
     @if(Auth::user()->role == 0)
@@ -46,14 +44,10 @@
                     Edit
                 </a>
             </td>
-            <td>{{ $i->created_at->diffForHumans() }}</td>
+            <td>{{ $i->updated_at->diffForHumans() }}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
 
 @endsection
-
-
-
-

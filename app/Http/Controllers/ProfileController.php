@@ -20,20 +20,11 @@ class ProfileController extends Controller
         return view("user-profile.profile");
     }
 
-    public function editPhoto(){
-        return view('user-profile.edit-photo');
-    }
-
     public function editPassword(){
         return view('user-profile.edit-password');
     }
 
-    public function editNameEmail(){
-        return view('user-profile.edit-name-email');
-    }
-
     public function changePassword(Request $request){
-
         $request->validate([
             'current_password' => ['required', new MatchOldPassword()],
             'new_password' => ['required','min:8'],
@@ -45,59 +36,4 @@ class ProfileController extends Controller
         return redirect()->route('login')->with("toast",["icon"=>"success","title"=>"Password Updated"]);
 
     }
-
-    public function changeName(Request $request){
-        $request->validate([
-            'name' => "required|min:3|max:50",
-        ]);
-        $user = User::find(Auth::id());
-        $user->name = $request->name;
-        $user->update();
-        return redirect()->route("profile.edit.name.email")->with("toast",["icon"=>"success","title"=>"Your Name Updated"]);
-    }
-
-    public function changeEmail(Request $request){
-        $request->validate([
-            'email' => "required|min:3|max:50",
-        ]);
-        $user = User::find(Auth::id());
-        $user->email = $request->email;
-        $user->update();
-        return redirect()->route("profile.edit.name.email")->with("toast",["icon"=>"success","title"=>"Email Updated"]);
-    }
-
-    public function changePhoto(Request $request){
-        $request->validate([
-            "photo" => "required|mimetypes:image/jpeg,image/png|dimensions:ratio=1/1|file|max:2500"
-        ]);
-        $dir="public/profile/";
-
-        Storage::delete($dir.Auth::user()->photo);
-
-        $newName = uniqid()."_photo.".$request->file("photo")->getClientOriginalExtension();
-        $request->file("photo")->storeAs($dir,$newName);
-
-        $user = User::find(Auth::id());
-        $user->photo = $newName;
-        $user->update();
-
-        return redirect()->route("profile.edit.photo")->with("toast",["icon"=>"success","title"=>"Photo Updated"]);
-
-    }
-
-    public function updateInfo(Request $request){
-
-        $request->validate([
-            "phone" => 'required|max:15',
-            "address" => "required|max:300"
-        ]);
-
-        $currentUser = User::find(Auth::id());
-        $currentUser->phone = $request->phone;
-        $currentUser->address = $request->address;
-        $currentUser->save();
-
-        return redirect()->back()->with("toast",["icon"=>"success","title"=>"Information Updated"]);
-    }
-
 }

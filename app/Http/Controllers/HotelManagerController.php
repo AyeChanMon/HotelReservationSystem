@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
+
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+
 use App\Levels;
 use App\Rooms;
 use App\Roomtypes;
 use App\Hotelrooms;
 use App\Reservations;
-use Illuminate\Http\Request;
-use DB;
-use Maatwebsite\Excel\Facades\Excel;
-use Carbon\Carbon;
+
 class HotelManagerController extends Controller
 {
    
     public function index(){
-        // $hotels = Hotel::all();
-        // return view("hotel-manager.hotel-create",compact('hotels'));
         return view("hotel-manager.hotel-create");
     }
 
@@ -24,34 +25,24 @@ class HotelManagerController extends Controller
     }
 
     public function reserve(){
-        $data = DB::table('hotelrooms')
-        ->join('roomtypes', 'roomtypes.id', '=', 'hotelrooms.room_type_id')
-        ->select('roomtypes.id', 'roomtypes.name')
-        ->get();
-        return view('hotel-manager.hotel-reservation', compact('data'));
+        return view('hotel-manager.hotel-reservation');
     }
 
     public function list(){
-        // $hotels = Hotel::all();
-        // return view("hotel-manager.hotel-create",compact('hotels'));
         return view("hotel-manager.room-type-list");
     }
 
     public function floorlist(){
-        // $hotels = Hotel::all();
-        // return view("hotel-manager.hotel-create",compact('hotels'));
         return view("hotel-manager.hotel-floor-list");
     }
 
     public function room(){
-        // $hotels = Hotel::all();
-        // return view("hotel-manager.hotel-create",compact('hotels'));
         return view("hotel-manager.hotel-room");
     }
 
     public function floorstore(Request $request){
         $request -> validate([
-            'name' => "required|min:3|max:50",
+            'name' => "required",
         ]);
         $level = new Levels();
         $level->name = $request->name;
@@ -61,7 +52,7 @@ class HotelManagerController extends Controller
 
     public function roomstore(Request $request){
         $request -> validate([
-            'name' => "required|min:3|max:50",
+            'name' => "required",
         ]);
         $room = new Rooms();
         $room->name = $request->name;
@@ -71,8 +62,8 @@ class HotelManagerController extends Controller
     
     public function roomtypestore(Request $request){
         $request -> validate([
-            'name' => "required|min:3|max:50",
-            'price'=>"required|numeric"
+            'name' => "required",
+            'price'=>"required|numeric|min:0"
         ]);
         $roomtype = new Roomtypes();
         $roomtype->name = $request->name;
@@ -131,6 +122,7 @@ class HotelManagerController extends Controller
     public function updatetype($id, Request $request){
         $currentItem = Roomtypes::find($id);
         $currentItem->name = $request->name;
+        $currentItem->price = $request->price;
         $currentItem -> update();
         return redirect()->route("hotel-manager.list")->with("toast",['icon'=>'success','title'=>$currentItem->name." is updated successfully"]);
     }
@@ -140,7 +132,6 @@ class HotelManagerController extends Controller
     }
 
     public function hotelroomstore(Request $request){
-        
         $request -> validate([
             'fid' => "required",
             'rno' => "required",
@@ -198,7 +189,6 @@ class HotelManagerController extends Controller
             if(isset($request->noRooms1)){
                 $totalAmount = ($typeRow->pluck('price')[0]) * ($request->noRooms1);
             }
-            
         }
       
         if(isset($request->rType2)){
@@ -206,8 +196,8 @@ class HotelManagerController extends Controller
             if(isset($request->noRooms2)){
                 $totalAmount = $totalAmount + (($typeRow1->pluck('price')[0]) * ($request->noRooms2));
             }
-            
         }
+
         $dateFrom = Carbon::create($request->cindate);
         $dateTo = Carbon::create($request->coutdate);
         $diff = $dateFrom->diffInDays($dateTo,true);
@@ -240,9 +230,6 @@ class HotelManagerController extends Controller
     public function export() 
     {
         $reservation = new Reservations();
-        return Excel::download($reservation, 'reservation.xlsx');
+        return Excel::download($reservation, 'reservation.csv');
     }
-
-
-    
 }

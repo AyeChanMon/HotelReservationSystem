@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section("title") Hotel Room Edit @endsection
-
 @section('content')
 
     <x-bread-crumb>
@@ -61,7 +59,7 @@
         
         
         <hr>
-        <button class="btn btn-primary" type="submit">Update</button>
+        <button class="btn btn-danger" type="submit">Update</button>
     </form>
 
 @endsection

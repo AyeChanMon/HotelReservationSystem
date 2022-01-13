@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section("title") Create Account @endsection
 @section('content')
     <section class="main container ">
         <div class="row min-vh-100 justify-content-center align-items-center">

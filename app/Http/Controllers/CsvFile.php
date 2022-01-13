@@ -9,6 +9,6 @@ use App\Exports\CsvExport;
 class CsvFile extends Controller
 {
     public function csv_export(){
-        return Excel::download(new CsvExport,'reservation.xlsx');
+        return Excel::download(new CsvExport,'reservation.csv');
     }
 }

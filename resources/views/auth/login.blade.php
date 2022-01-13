@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section("title") Sign In @endsection
 @section("content")
     <section class="main container">
         <div class="row min-vh-100 justify-content-center align-items-center">
@@ -16,7 +15,7 @@
                             <form action="{{ route('login') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label>User Name<span class="text-danger">*</span></label>
+                                    <label>Email<span class="text-danger">*</span></label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
